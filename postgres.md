@@ -20,7 +20,7 @@ pull docker image
 docker run -d -e POSTGRES_USER={role} -e POSTGRES_PASSWORD={pw} --name postdb -p 5454:5432  postgres
 ```
 run new container 
-``sh
+```sh
 docker pull dpage/pgadmin4
 ```
 pull pgadmin if needed (SPOILER: you don't need it)
