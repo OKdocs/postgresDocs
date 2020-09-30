@@ -86,6 +86,11 @@ executes sql-commands from file
 \x
 ```
 toggle expanded display, shows tables vertically instead of horizontally
+```
+\copy (SELECT [...] FROM [...]) TO '/file/system/path/to/results.csv' DELIMITER ',' CSV HEADER
+```
+generate csv files from postgres
+
 # SQL commands
 ## creating users and dbs
 ```sql
@@ -283,3 +288,15 @@ SELECT * FROM tableA
 JOIN tableB ON tableA.columnX = tableB.columnZ;
 ```
 returns all entries from tableA and tableB where tableA.columnX is tableB.columnZ
+```sql
+SELECT * FROM tableA
+JOIN tableB USING (foreignKey)
+```
+alternative join, easier to write, but only works if foreignKey and primaryKey have same name
+## altering sequences
+```sql
+ALTER SEQUENCE sequenceX RESTART WITH x;
+```
+restart sequence with other number
+
+## UUID
