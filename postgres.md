@@ -209,8 +209,24 @@ AGE(timestamp)
 AGE(timestamp,timestamp)
 ```
 shows either difference timestamp to now() or difference between two timestamps, more information in [docs 9.9 Date/Time Functions and Operators](https://www.postgresql.org/docs/9.5/functions-datetime.html)
+## delete entries
+```sql
+DELETE FROM tableX WHERE columnY = $1;
+```
+delete entry from tableX where columnY is $1
 ## modify table
 ```sql
 ALTER TABLE ...
 ````
-
+```sql
+ALTER TABLE tableX ADD PRIMARY KEY (columnY);
+```
+make column primary key
+```sql
+ALTER TABLE tableX ADD CONSTRAINT constraintNameY UNIQUE (columnZ);
+ALTER TABLE tableX ADD UNIQUE (columnY);
+```
+adds unique constraint to columnY in tableX, second lets postgres pick the constraint name
+```sql
+ALTER TABLE tableX ADD CONSTRAINT constraintNameY CHECK (columnY = 'something' OR columnY = 'other'); 
+```
