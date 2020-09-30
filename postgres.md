@@ -78,6 +78,10 @@ info about columns in table
 ```
 create user, many options, look in [docs create user](https://www.postgresql.org/docs/9.1/app-createuser.html)
 options ```--interactive``` for easy interactive set up ```--pwprompt``` to enable/ require password
+```
+\i /file/path/to.sql
+```
+executes sql-commands from file
 
 # SQL commands
 ## creating users and dbs
@@ -89,6 +93,22 @@ create user
 CREATE DATABASE {name} OWNER {name}
 ```
 create db
+## inserting entries
+```sql
+INSERT INTO tableX (columnA, columnB, [...]) VALUES (valueA, valueB, [...]);
+```
+insert new entry in table 
+### conflict handling
+```sql
+INSERT INTO [...] VALUES [...] ON CONFLICT (columnX, [...]) DO NOTHING;
+```
+do nothing if constraint is on columnX is violated
+#### upsert
+```sql
+INSERT INTO tableX (columnY, [...]) VALUES ('valueY',[...]) ON CONFLICT (columnY) DO UPDATE SET columnY = EXCLUDED.columnY;
+```
+if entry conflicts perform update of conficting column instead of insertion of new entry, 
+```EXCLUDED``` is keyword for a table of the conflicting entries
 ## selection (read)
 ```sql
 SELECT {column} FROM {table}
@@ -214,6 +234,13 @@ shows either difference timestamp to now() or difference between two timestamps,
 DELETE FROM tableX WHERE columnY = $1;
 ```
 delete entry from tableX where columnY is $1
+## UPDATE entries
+```sql
+UPDATE tableX SET columnY = 'newValue' WHERE columnZ = $1;
+UPDATE tableX SET columnY = 'firstValue', columnZ = 'secondValue' [...] WHERE columnA = $1;
+```
+update single or multiple values
+
 ## modify table
 ```sql
 ALTER TABLE ...
@@ -230,3 +257,17 @@ adds unique constraint to columnY in tableX, second lets postgres pick the const
 ```sql
 ALTER TABLE tableX ADD CONSTRAINT constraintNameY CHECK (columnY = 'something' OR columnY = 'other'); 
 ```
+## foreign keys
+```sql
+columnX BIGINT REFERENCES tableY(columnZ)
+```
+regular foreign key 
+```sql
+columnX BIGINT REFERENCES tableY(columnZ) NOT NULL
+```
+must have relation
+```sql
+columnX BIGINT REFERENCES tableY(columnZ),
+UNIQUE(columnX)
+```
+unique "owner"
