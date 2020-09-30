@@ -82,7 +82,10 @@ options ```--interactive``` for easy interactive set up ```--pwprompt``` to enab
 \i /file/path/to.sql
 ```
 executes sql-commands from file
-
+```
+\x
+```
+toggle expanded display, shows tables vertically instead of horizontally
 # SQL commands
 ## creating users and dbs
 ```sql
@@ -271,3 +274,12 @@ columnX BIGINT REFERENCES tableY(columnZ),
 UNIQUE(columnX)
 ```
 unique "owner"
+
+## JOIN
+### inner join
+inner join returns all data from both tables that contains the selected information
+```sql
+SELECT * FROM tableA
+JOIN tableB ON tableA.columnX = tableB.columnZ;
+```
+returns all entries from tableA and tableB where tableA.columnX is tableB.columnZ
