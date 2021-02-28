@@ -249,6 +249,15 @@ UPDATE tableX SET columnY = 'firstValue', columnZ = 'secondValue' [...] WHERE co
 ```
 update single or multiple values
 
+## make table
+
+```sql
+CREATE TABLE(
+{name} {kind}
+...
+);
+```
+
 ## modify table
 ```sql
 ALTER TABLE ...
